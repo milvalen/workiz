@@ -7,7 +7,7 @@ interface DealFieldsService {
 }
 
 const GetAllDealFields = async (): Promise<object[]> =>
-  (await axios.get<object[]>('/dealFields')).data;
+  (await axios.get('/dealFields/')).data.data;
 
 const AddNewDealField = async (data: DealFieldData): Promise<boolean> => {
   try {

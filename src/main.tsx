@@ -1,9 +1,7 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { AddJob } from './jobs';
+import './app/index.pcss';
+import './assets/styles/reset.scss';
+import './assets/styles/global.scss';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <AddJob />
-  </React.StrictMode>
-);
+ReactDOM.createRoot(document.getElementById('root')!).render(<AddJob />);

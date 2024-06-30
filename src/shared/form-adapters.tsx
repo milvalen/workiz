@@ -1,5 +1,8 @@
 import { Field, useField } from 'effector-forms';
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
+import clsx from 'clsx';
+import DatePicker from 'react-datepicker';
+import TimeIcon from '../assets/icons/time.svg?react';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   isInvalid?: boolean;
@@ -13,17 +16,111 @@ export type FormAdapterProps<T> = {
   field: Field<T>;
 } & Omit<InputProps, 'isInvalid'>;
 
+export type SelectFieldOption = {
+  value: string;
+  label: string;
+};
+
 export const TextFieldAdapter = ({
   field,
+  className,
   ...props
 }: FormAdapterProps<string>) => {
-  const { value, onChange } = useField(field);
+  const { value, onChange, hasError } = useField(field);
 
   return (
     <input
+      className={clsx(
+        'w-full rounded outline-none border border-gray-300 py-3 indent-3',
+        className,
+        { '!border-red-300 !border-2': hasError() }
+      )}
       value={value}
       onChange={(e) => onChange(e.currentTarget.value)}
       {...props}
+    />
+  );
+};
+
+export const SelectFieldAdapter = ({
+  field,
+  defaultOptionValue,
+  options,
+  className,
+}: {
+  options: SelectFieldOption[];
+  defaultOptionValue: string;
+  field: Field<any>;
+  className?: string;
+}) => {
+  const { value, onChange, hasError } = useField(field);
+
+  return (
+    <select
+      value={value ?? defaultOptionValue}
+      onChange={(ev) => onChange(ev.currentTarget.value)}
+      className={clsx(
+        'w-full rounded outline-none border border-gray-300 py-3 indent-3',
+        className,
+        { '!border-red-300 !border-2': hasError() }
+      )}
+    >
+      {options.map(({ value, label }, i) => (
+        <option key={value + i} value={value} className="">
+          {label}
+        </option>
+      ))}
+    </select>
+  );
+};
+
+export const DateFieldAdapter = ({
+  field,
+  time = false,
+  placeholder,
+}: {
+  field: Field<any>;
+  placeholder: string;
+  className?: string;
+  time?: boolean;
+}) => {
+  const [date, setDate] = useState<Date | null>(null);
+
+  const { onChange, hasError } = useField(field);
+
+  const timeFormat = 'HH:mm';
+  const locale = 'sv-SE';
+
+  return (
+    <DatePicker
+      className={clsx(
+        'w-full rounded outline-none border border-gray-300 !py-3 !indent-3',
+        {
+          '!border-red-300 !border-2': hasError(),
+        },
+        {
+          '!min-w-20': time,
+        }
+      )}
+      selected={date}
+      showIcon
+      icon={time && <TimeIcon />}
+      calendarIconClassName="mt-1.5 pointer-events-none"
+      timeFormat={timeFormat}
+      dateFormat={time ? timeFormat : 'dd/MM/yyyy'}
+      showTimeSelect={time}
+      showTimeSelectOnly={time}
+      onChange={(date) => {
+        setDate(date);
+        onChange(
+          date
+            ? time
+              ? date.toLocaleTimeString(locale)
+              : date.toLocaleDateString(locale)
+            : ''
+        );
+      }}
+      placeholderText={placeholder}
     />
   );
 };

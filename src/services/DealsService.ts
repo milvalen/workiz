@@ -17,5 +17,5 @@ export const dealsService: DealsService = {
   AddDeal: AddDeal,
 };
 
-axios.defaults.headers.baseUrl = import.meta.env.VITE_BASE_URL;
-axios.defaults.params = { api_token: import.meta.env.VITE_API_KEY };
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.headers['x-api-token'] = import.meta.env.VITE_API_KEY;
