@@ -2,7 +2,6 @@ import { Field, useField } from 'effector-forms';
 import { InputHTMLAttributes } from 'react';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  labelText: string;
   isInvalid?: boolean;
   isDisabled?: boolean;
   multiple?: boolean;
