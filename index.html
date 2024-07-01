@@ -12,7 +12,7 @@
     <script type="module" src="/src/main.tsx"></script>
     <script>
       (async function() {
-        const sdk = await new AppExtensionsSDK().initialize();
+        const sdk = await new AppExtensionsSDK().initialize({ size: { height: 1000, width: 1000 } });
       })();
     </script>
   </body>
