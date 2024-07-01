@@ -1,8 +1,9 @@
 import { Field, useField } from 'effector-forms';
-import { InputHTMLAttributes, useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import clsx from 'clsx';
 import DatePicker from 'react-datepicker';
 import TimeIcon from '../assets/icons/time.svg?react';
+import * as model from '../jobs/model.ts';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   isInvalid?: boolean;
@@ -123,6 +124,25 @@ export const DateFieldAdapter = ({
         );
       }}
       placeholderText={placeholder}
+    />
+  );
+};
+
+export const TextareaAdapter = ({
+  field,
+  placeholder,
+}: {
+  field: Field<any>;
+  placeholder: string;
+}) => {
+  const { value, onChange } = useField(field);
+
+  return (
+    <textarea
+      className="w-full rounded outline-none border border-gray-300 p-3 h-[102px]"
+      placeholder={placeholder}
+      value={value}
+      onChange={(e) => onChange(e.currentTarget.value)}
     />
   );
 };

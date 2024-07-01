@@ -3,29 +3,24 @@ import React, { useState } from 'react';
 import {
   DateFieldAdapter,
   SelectFieldAdapter,
+  TextareaAdapter,
   TextFieldAdapter,
 } from '../shared/form-adapters.tsx';
 import { useUnit } from 'effector-react';
 import { Button } from '../shared/button.tsx';
 import { areaOptions, technicianOptions } from './lib.ts';
 import 'react-datepicker/dist/react-datepicker.css';
-import AppExtensionsSDK from '@pipedrive/app-extensions-sdk';
 
 export const AddJob = () => {
   model.open();
 
   const isLoading = useUnit(model.$isLoading);
   const isDone = useUnit(model.$isDone);
-  const initialJobDescription = useUnit(model.form.fields.jobDescription.$value);
-
-  const [jobDescription, setJobDescription] = useState(initialJobDescription);
 
   function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
     model.form.submit();
   }
-
-  new AppExtensionsSDK().initialize();
 
   return !isLoading && !isDone ? (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -66,15 +61,9 @@ export const AddJob = () => {
               className="!min-w-20"
             />
           </div>
-          <textarea
-            className="w-full rounded outline-none border border-gray-300 p-3 h-[102px]"
-            placeholder="Job describtion (optional)"
-            value={jobDescription}
-            onChange={(e) => {
-              const text = e.target.value;
-              setJobDescription(text);
-              model.form.fields.jobDescription.onChange(text);
-            }}
+          <TextareaAdapter
+            field={model.form.fields.jobDescription}
+            placeholder="Job description (optional)"
           />
         </FormBlock>
         <FormBlock label="Service location">

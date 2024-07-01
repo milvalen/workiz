@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@pipedrive/app-extensions-sdk": "^0.10.2",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "effector": "^22.8.6",
