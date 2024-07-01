@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+# Code Explanation Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This documentation provides an overview of the Javascript intern test assignment completed by the developer.
 
-Currently, two official plugins are available:
+### Application Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- The application allows users to add a job through an iframe.
+- Users can fill in the required fields and save the job details.
+- After saving, users can send the job request, which creates a new task.
 
-## Expanding the ESLint configuration
+### Architecture
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- The application is built using Vite with React and TypeScript.
+- It is divided into UI, application state, and API request service levels.
+- Tailwind is used for styling with global styles and reset default styles for consistency.
 
-- Configure the top-level `parserOptions` property like this:
+### Main Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- The job form includes select field options, and form field validation for content, date, and phone number.
+- Validation is done using Zod and regular expressions.
+- Field adapters are used to handle form fields and their values.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Components
+
+- Field adapters like TextAreaAdapter, SelectFieldAdapter, and DateFieldAdapter handle specific field types.
+- Button components have variants for different actions like saving form values.
+- The form block component provides a minimalistic structure for the main feature.
+
+### Services
+
+CRUD services handle get and post requests for dealing with job fields.
+
+### Utility
+
+- The main validation utility uses the Zod library.
+- Button-shared components and types for fields are included.
+
+### Initialization
+
+- The source development kit is initialized in the index.html script through the CDN.
+- The iframe is initialized with specific sizes and configurations.
+
+### Configuration
+
+- Tailwind and TypeScript configurations are set up.
+- SVGR plugin for rendering icons is used for rendering of SVGs.
+
+### Environmental Setup
+
+- Environmental values like pipedrive-api-endpoint, pipedrive-apikey, and iframe-id are input through the interface.
+- These values need to be copied to Netlify for successful application building.
+
+This documentation provides an overview of the code structure and key components of the Javascript intern test assignment completed by the
+developer.
+
+
