@@ -11,8 +11,6 @@ import { areaOptions, technicianOptions } from './lib.ts';
 import 'react-datepicker/dist/react-datepicker.css';
 import AppExtensionsSDK from '@pipedrive/app-extensions-sdk';
 
-await new AppExtensionsSDK().initialize();
-
 export const AddJob = () => {
   model.open();
 
@@ -23,6 +21,10 @@ export const AddJob = () => {
     ev.preventDefault();
     model.form.submit();
   }
+
+  new AppExtensionsSDK({
+    identifier: import.meta.env.VITE_ID,
+  }).initialize();
 
   return !isLoading && !isDone ? (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -121,7 +123,9 @@ export const AddJob = () => {
         <Button className="bg-yellow-200" type="submit">
           Create job
         </Button>
-        <Button onClick={() => model.save()} className="bg-gray-200">Save info</Button>
+        <Button onClick={() => model.save()} className="bg-gray-200">
+          Save info
+        </Button>
       </div>
     </form>
   ) : (
