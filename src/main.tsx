@@ -3,12 +3,12 @@ import { AddJob } from './jobs';
 import './app/index.pcss';
 import './assets/styles/reset.scss';
 import './assets/styles/global.scss';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <HashRouter>
+  <BrowserRouter>
     <Routes>
-      <Route path="*" element={<AddJob />} />
+      <Route path="/*" element={<AddJob />} />
     </Routes>
-  </HashRouter>
+  </BrowserRouter>
 );
