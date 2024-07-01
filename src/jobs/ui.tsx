@@ -9,6 +9,9 @@ import { useUnit } from 'effector-react';
 import { Button } from '../shared/button.tsx';
 import { areaOptions, technicianOptions } from './lib.ts';
 import 'react-datepicker/dist/react-datepicker.css';
+import AppExtensionsSDK from '@pipedrive/app-extensions-sdk';
+
+await new AppExtensionsSDK().initialize();
 
 export const AddJob = () => {
   model.open();
