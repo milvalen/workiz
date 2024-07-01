@@ -66,7 +66,9 @@ export const AddJob = () => {
           <textarea
             className="w-full rounded outline-none border border-gray-300 p-3 h-[102px]"
             placeholder="Job describtion (optional)"
-            onChange={() => model.form.fields.jobDescription.onChange}
+            onChange={(e) =>
+              model.form.fields.jobDescription.onChange(e.currentTarget.value)
+            }
           />
         </FormBlock>
         <FormBlock label="Service location">
