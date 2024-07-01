@@ -1,9 +1,8 @@
 import { Field, useField } from 'effector-forms';
-import React, { InputHTMLAttributes, useState } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
 import clsx from 'clsx';
 import DatePicker from 'react-datepicker';
 import TimeIcon from '../assets/icons/time.svg?react';
-import * as model from '../jobs/model.ts';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   isInvalid?: boolean;

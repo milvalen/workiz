@@ -1,5 +1,5 @@
 import * as model from './model';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   DateFieldAdapter,
   SelectFieldAdapter,
