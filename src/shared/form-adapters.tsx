@@ -84,9 +84,11 @@ export const DateFieldAdapter = ({
   className?: string;
   time?: boolean;
 }) => {
-  const [date, setDate] = useState<Date | null>(null);
+  const { value, onChange, hasError } = useField(field);
 
-  const { onChange, hasError } = useField(field);
+  const [date, setDate] = useState<Date | null>(
+    new Date(time ? '1970-01-01T' + value : value + 'T00:00:00')
+  );
 
   const timeFormat = 'HH:mm';
   const locale = 'sv-SE';

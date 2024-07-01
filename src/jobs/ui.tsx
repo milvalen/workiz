@@ -14,13 +14,14 @@ export const AddJob = () => {
   model.open();
 
   const isLoading = useUnit(model.$isLoading);
+  const isDone = useUnit(model.$isDone);
 
   function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
     model.form.submit();
   }
 
-  return !isLoading ? (
+  return !isLoading && !isDone ? (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="grid md:grid-cols-2 gap-4">
         <FormBlock label="Client details">
@@ -117,11 +118,11 @@ export const AddJob = () => {
         <Button className="bg-yellow-200" type="submit">
           Create job
         </Button>
-        <Button className="bg-gray-200">Save info</Button>
+        <Button onClick={() => model.save()} className="bg-gray-200">Save info</Button>
       </div>
     </form>
   ) : (
-    <>Loading...</>
+    <p className="text-2xl">{isDone ? 'Job created!' : 'Loading...'}</p>
   );
 };
 

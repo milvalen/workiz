@@ -11,8 +11,7 @@ import { createForm } from 'effector-forms';
 import { dealsService } from '../services/DealsService.ts';
 import { createRule } from '../services/utils.ts';
 import { z } from 'zod';
-
-// TODO: save form values
+import { persist } from 'effector-storage/local';
 
 export const form = createForm({
   fields: {
@@ -158,13 +157,19 @@ export const form = createForm({
 
 export const open = createEvent();
 
+export const save = createEvent();
+
 export const $isLoading = createStore(true);
+
+export const $isDone = createStore(false);
 
 const $dealFields = createStore<object[]>([]);
 
 const $jobFields = createStore<(typeof jobFields)[number][]>([]);
 
 const $keys = createStore<object>({});
+
+const $savedFormValues = createStore({});
 
 const GetDealFieldsFX = createEffect(() => {
   console.log('getDealFieldsFX');
@@ -182,7 +187,6 @@ const AddJobFX = createEffect((data: object) => dealsService.AddDeal(data));
 
 sample({
   clock: open,
-  filter: $isLoading,
   target: GetDealFieldsFX,
 });
 
@@ -210,6 +214,13 @@ sample({
   clock: AddJobFieldsFX.doneData,
   fn: () => false,
   target: $isLoading,
+});
+
+sample({
+  clock: $isLoading,
+  filter: (isLoading) => !isLoading,
+  fn: () => JSON.parse(localStorage.getItem('formValues') ?? ''),
+  target: form.setForm,
 });
 
 sample({
@@ -255,4 +266,27 @@ sample({
     };
   },
   target: AddJobFX,
+});
+
+sample({
+  clock: AddJobFX.pending,
+  fn: () => true,
+  target: $isLoading,
+});
+
+sample({
+  clock: AddJobFX.done,
+  fn: () => true,
+  target: $isDone,
+});
+
+sample({
+  clock: save,
+  source: form.$values,
+  target: $savedFormValues,
+});
+
+persist({
+  store: $savedFormValues,
+  key: 'formValues',
 });
