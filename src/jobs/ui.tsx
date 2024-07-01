@@ -22,9 +22,7 @@ export const AddJob = () => {
     model.form.submit();
   }
 
-  new AppExtensionsSDK({
-    identifier: import.meta.env.VITE_ID,
-  }).initialize();
+  new AppExtensionsSDK().initialize();
 
   return !isLoading && !isDone ? (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
