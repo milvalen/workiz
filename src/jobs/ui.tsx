@@ -1,5 +1,5 @@
 import * as model from './model';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   DateFieldAdapter,
   SelectFieldAdapter,
@@ -16,6 +16,9 @@ export const AddJob = () => {
 
   const isLoading = useUnit(model.$isLoading);
   const isDone = useUnit(model.$isDone);
+  const initialJobDescription = useUnit(model.form.fields.jobDescription.$value);
+
+  const [jobDescription, setJobDescription] = useState(initialJobDescription);
 
   function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
@@ -66,9 +69,12 @@ export const AddJob = () => {
           <textarea
             className="w-full rounded outline-none border border-gray-300 p-3 h-[102px]"
             placeholder="Job describtion (optional)"
-            onChange={(e) =>
-              model.form.fields.jobDescription.onChange(e.currentTarget.value)
-            }
+            value={jobDescription}
+            onChange={(e) => {
+              const text = e.target.value;
+              setJobDescription(text);
+              model.form.fields.jobDescription.onChange(text);
+            }}
           />
         </FormBlock>
         <FormBlock label="Service location">
