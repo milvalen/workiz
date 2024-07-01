@@ -187,6 +187,7 @@ const AddJobFX = createEffect((data: object) => dealsService.AddDeal(data));
 
 sample({
   clock: open,
+  filter: $isLoading,
   target: GetDealFieldsFX,
 });
 
@@ -219,7 +220,10 @@ sample({
 sample({
   clock: $isLoading,
   filter: (isLoading) => !isLoading,
-  fn: () => JSON.parse(localStorage.getItem('formValues') ?? ''),
+  fn: () =>
+    localStorage.getItem('formValues')
+      ? JSON.parse(localStorage.getItem('formValues')!)
+      : {},
   target: form.setForm,
 });
 

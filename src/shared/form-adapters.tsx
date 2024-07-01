@@ -87,7 +87,7 @@ export const DateFieldAdapter = ({
   const { value, onChange, hasError } = useField(field);
 
   const [date, setDate] = useState<Date | null>(
-    new Date(time ? '1970-01-01T' + value : value + 'T00:00:00')
+    value ? new Date(time ? '1970-01-01T' + value : value + 'T00:00:00') : null
   );
 
   const timeFormat = 'HH:mm';

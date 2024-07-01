@@ -4,4 +4,3 @@ export type DealFieldData = {
   field_type: (typeof fieldTypes)[number];
   name: string;
 };
-
