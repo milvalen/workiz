@@ -33,7 +33,7 @@ CRUD services handle get and post requests for dealing with job fields.
 ### Utility
 
 - The main validation utility uses the Zod library.
-- Button-shared components and types for fields are included.
+- Shared components and types for fields are included.
 
 ### Initialization
 
